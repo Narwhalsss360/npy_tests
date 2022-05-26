@@ -31,7 +31,11 @@ def subtract(s):
     print(result)
 
 def show_a_text_file(s):
-    path = s.args[0]
+    if len(s.args) != 0:
+        path = s.args[0]
+    else:
+        path = terminal_app.ask('path? ')
+        path = path.args[0]
     lines = list()
     temp_lines = list()
     with open(path, 'r') as text_file:
