@@ -42,7 +42,7 @@ def show_a_text_file(s):
         temp_lines = text_file.readlines()
 
     for line_number, line in enumerate(temp_lines):
-        status = int(npy.mapf(line_number, 0, len(temp_lines) - 1, 0, 100))
+        status = int(npy.map_value(line_number, 0, len(temp_lines) - 1, 0, 100))
         terminal.loading_bar(status, f'Loading file... {path}', clear_on_each=False)
         lines.append(line)
         sleep(0.08)
@@ -58,6 +58,10 @@ def save_item(s):
     global user_saved_items
     user_saved_items.update({ s.args[0] : s.args[1] })
 
+def show_saved_items(s):
+    global user_saved_items
+    print(user_saved_items)
+
 def custom_help(s):
     print('Just read the source code...')
 
@@ -70,7 +74,8 @@ subtract_command = terminal.TerminalCommand('subtract', subtract, ': <minuend> <
 clear_command = terminal.TerminalCommand('clear', terminal.clear, ': Clears the terminal window.')
 show_text_file_command = terminal.TerminalCommand('show', show_a_text_file, ': <filepath> Shows a text file.')
 custom_help_command = terminal.TerminalCommand('help', custom_help, ': Show help.')
-save_item_command = terminal.TerminalCommand('save', save_item, ': Save and item')
+save_item_command = terminal.TerminalCommand('save', save_item, ': <Key> <Value> Save an item')
+show_show_saved_items_command = terminal.TerminalCommand('show-saved', show_saved_items, 'Shows items save using save command')
 exit_command = terminal.TerminalCommand('exit', exit_app, ': Exits application.')
 
 terminal_app.commands.append(add_command)
@@ -79,6 +84,7 @@ terminal_app.commands.append(clear_command)
 terminal_app.commands.append(show_text_file_command)
 #terminal_app.commands.append(custom_help_command) #Uncomment for a custom help message.
 terminal_app.commands.append(save_item_command)
+terminal_app.commands.append(show_show_saved_items_command)
 terminal_app.commands.append(exit_command)
 
 while True:
